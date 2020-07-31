@@ -34,13 +34,13 @@ if __name__ == "__main__":
     #链接MySQL数据库
     mydb1 = pymysql.connect(host='localhost',
                             user='root',
-                            password='',
+                            password='root',
                             port=3306,
                             database='test_1',
                             charset='utf8')  #链接本地mysql数据库
     mycursor = mydb1.cursor()  #新建游标变量
-    mycursor.execute("DROP TABLE stu_info")  #测试用，删除原有表
-    SQL_CREATE_TABLE = "CREATE TABLE stu_info(ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, SNAME VARCHAR(255), SEX VARCHAR(255), Age INT, Addr VARCHAR(255), Grade VARCHAR(255), PhoneNumber VARCHAR(255),Gold INT)"
+    #mycursor.execute("DROP TABLE IF EXIST stu_info")  #测试用，删除原有表
+    SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS stu_info(ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, SNAME VARCHAR(255), SEX VARCHAR(255), Age INT, Addr VARCHAR(255), Grade VARCHAR(255), PhoneNumber VARCHAR(255),Gold INT)"
     mycursor.execute(SQL_CREATE_TABLE)  #创建表（如果不存在的话）
-    json_file = open("jsontestf1.json", 'r', encoding='utf8')  #打开本地编写好的json文件
+    json_file = open("/home/stephens/文档/test/Stephen_S/jsontestf1.json", 'r', encoding='utf8')  #打开本地编写好的json文件
     insert_json_toMySQL(json_file, mycursor,mydb1)
